@@ -69,19 +69,50 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    @OnClick({R.id.btn_submit, R.id.btn_increase, R.id.btn_decrease, R.id.btn_clear})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_submit:
-                hideKeyBoard();
-                break;
-            case R.id.btn_increase:
-                break;
-            case R.id.btn_decrease:
-                break;
-            case R.id.btn_clear:
-                break;
+    @OnClick(R.id.btn_submit)
+    public void handleClickSubmit() {
+        hideKeyBoard();
+        String strInpuTotal = inputBill.getText().toString().trim();
+        if (!strInpuTotal.isEmpty()) {
+            double total = Double.parseDouble(strInpuTotal);
+            int tipPercentage = getTipPercentage();
+            double tip = total * (tipPercentage / 100d);
+
+            String strTip = String.format(getString(R.string.global_message_tip), tip);
+            lblTip.setVisibility(View.VISIBLE);
+            lblTip.setText(strTip);
         }
+    }
+
+    @OnClick(R.id.btn_increase)
+    public void handleClickIncrease(){
+        hideKeyBoard();
+        handleTipChange(TIP_CHANGE);
+    }
+
+    @OnClick(R.id.btn_decrease)
+    public void handleClickDecrease(){
+        hideKeyBoard();
+        handleTipChange(-TIP_CHANGE);
+    }
+
+    private void handleTipChange(int change) {
+        int tipPercentage = getTipPercentage();
+        tipPercentage += change;
+        if (tipPercentage > 0){
+            inputPercentage.setText(String.valueOf(tipPercentage));
+        }
+    }
+
+    public int getTipPercentage() {
+        int tipPercentage = DEFAULT_TIP_PERCENTAGE;
+        String strInputTipPercentage = inputPercentage.getText().toString().trim();
+        if (!strInputTipPercentage.isEmpty()){
+            tipPercentage = Integer.parseInt(strInputTipPercentage);
+        }else {
+            inputPercentage.setText(String.valueOf(tipPercentage));
+        }
+        return tipPercentage;
     }
 
     private void hideKeyBoard() {
@@ -94,4 +125,5 @@ public class MainActivity extends AppCompatActivity {
             Log.e(getLocalClassName(), Log.getStackTraceString(npe));
         }
     }
+
 }
