@@ -9,7 +9,10 @@
     <string name="main.hint.percentage">% de propina</string>
     <string name="main.notice.clear">Se han eliminado los elementos recientes</string>
     <string name="main.menu.action.about">Acerca de</string>
-    
+
     <string name="global.message.tip">Propina %,.1f</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
