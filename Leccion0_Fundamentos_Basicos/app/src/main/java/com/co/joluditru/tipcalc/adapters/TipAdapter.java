@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.co.joluditru.tipcalc.R;
 import com.co.joluditru.tipcalc.models.TipRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,12 +20,20 @@ import butterknife.ButterKnife;
  * Created by joluditru on 21/06/2016.
  */
 public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
-    Context context;
-    List<TipRecord> dataSet;
+    private Context context;
+    private List<TipRecord> dataSet;
+    private OnItemClickListener onItemClickListener;
 
-    public TipAdapter(Context context, List<TipRecord> dataSet) {
+    public TipAdapter(Context context, List<TipRecord> dataSet, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.dataSet = dataSet;
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public TipAdapter(Context context, OnItemClickListener onItemClickListener) {
+        this.context = context;
+        this.dataSet = new ArrayList<TipRecord>();
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -41,6 +50,7 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
                             context.getString(R.string.global_message_tip),
                             element.getTip());
         holder.lblContent.setText(strTip);
+        holder.setOnItemClickListener(element, onItemClickListener);
     }
 
     public void add(TipRecord record){
@@ -65,6 +75,15 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+
+        public void setOnItemClickListener(final TipRecord element, final OnItemClickListener onItemClickListener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(element);
+                }
+            });
         }
     }
 }
