@@ -18,6 +18,9 @@ import com.co.joluditru.tipcalc.R;
 import com.co.joluditru.tipcalc.TipCalcApp;
 import com.co.joluditru.tipcalc.fragments.TipHistoryListFragment;
 import com.co.joluditru.tipcalc.fragments.TipHistoryListFragmentListener;
+import com.co.joluditru.tipcalc.models.TipRecord;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,19 +28,10 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @BindView(R.id.input_bill)
     EditText inputBill;
-    @BindView(R.id.btn_submit)
-    Button btnSubmit;
     @BindView(R.id.input_percentage)
     EditText inputPercentage;
-    @BindView(R.id.btn_increase)
-    Button btnIncrease;
-    @BindView(R.id.btn_decrease)
-    Button btnDecrease;
-    @BindView(R.id.btn_clear)
-    Button btnClear;
     @BindView(R.id.lbl_tip)
     TextView lblTip;
 
@@ -90,10 +84,15 @@ public class MainActivity extends AppCompatActivity {
         if (!strInpuTotal.isEmpty()) {
             double total = Double.parseDouble(strInpuTotal);
             int tipPercentage = getTipPercentage();
-            double tip = total * (tipPercentage / 100d);
 
-            String strTip = String.format(getString(R.string.global_message_tip), tip);
-            fragmentListener.action(strTip);
+            TipRecord tipRecord = new TipRecord();
+            tipRecord.setBill(total);
+            tipRecord.setTipPercentage(tipPercentage);
+            tipRecord.setTimeStamp(new Date());
+
+            String strTip = String.format(getString(R.string.global_message_tip),
+                                            tipRecord.getTip());
+            fragmentListener.addToList(tipRecord);
             lblTip.setVisibility(View.VISIBLE);
             lblTip.setText(strTip);
         }
@@ -109,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
     public void handleClickDecrease(){
         hideKeyBoard();
         handleTipChange(-TIP_CHANGE);
+    }
+
+    @OnClick(R.id.btn_clear)
+    public void handleClickClear(){
+        fragmentListener.clearList();
     }
 
     private void handleTipChange(int change) {
