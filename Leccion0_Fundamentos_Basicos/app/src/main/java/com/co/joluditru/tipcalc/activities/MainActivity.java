@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
     EditText inputBill;
     @BindView(R.id.input_percentage)
     EditText inputPercentage;
-    @BindView(R.id.lbl_tip)
-    TextView lblTip;
 
     private TipHistoryListFragmentListener fragmentListener;
 
@@ -90,11 +88,7 @@ public class MainActivity extends AppCompatActivity {
             tipRecord.setTipPercentage(tipPercentage);
             tipRecord.setTimeStamp(new Date());
 
-            String strTip = String.format(getString(R.string.global_message_tip),
-                                            tipRecord.getTip());
             fragmentListener.addToList(tipRecord);
-            lblTip.setVisibility(View.VISIBLE);
-            lblTip.setText(strTip);
         }
     }
 

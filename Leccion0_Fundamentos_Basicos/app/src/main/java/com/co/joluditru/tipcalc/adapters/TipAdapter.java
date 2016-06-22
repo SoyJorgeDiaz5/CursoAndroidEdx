@@ -50,6 +50,7 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
                             context.getString(R.string.global_message_tip),
                             element.getTip());
         holder.lblContent.setText(strTip);
+        holder.lblDate.setText(element.getDateFormatted());
         holder.setOnItemClickListener(element, onItemClickListener);
     }
 
@@ -71,6 +72,8 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.lbl_content)
         TextView lblContent;
+        @BindView(R.id.lbl_date)
+        TextView lblDate;
 
         public ViewHolder(View itemView) {
             super(itemView);
