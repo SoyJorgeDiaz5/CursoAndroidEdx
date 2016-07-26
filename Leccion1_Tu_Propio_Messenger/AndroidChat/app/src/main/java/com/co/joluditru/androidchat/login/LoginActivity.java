@@ -1,4 +1,4 @@
-package com.co.joluditru.androidchat;
+package com.co.joluditru.androidchat.login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import com.co.joluditru.androidchat.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

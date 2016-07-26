@@ -1,4 +1,4 @@
-package com.co.joluditru.androidchat;
+package com.co.joluditru.androidchat.domain;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
@@ -8,7 +8,6 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Created by joluditru on 24/07/2016.
