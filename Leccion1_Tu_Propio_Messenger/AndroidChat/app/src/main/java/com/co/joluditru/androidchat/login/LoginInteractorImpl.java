@@ -7,6 +7,10 @@ public class LoginInteractorImpl implements LoginInteractor {
 
     private LoginRepository loginRepository;
 
+    public LoginInteractorImpl() {
+        loginRepository = new LoginRepositoryImpl();
+    }
+
     @Override
     public void checkSession() {
         loginRepository.checkSession();
